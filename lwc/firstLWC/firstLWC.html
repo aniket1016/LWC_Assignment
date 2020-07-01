@@ -1,0 +1,48 @@
+<template>
+  
+  <div class='slds-grid'>
+
+    <lightning-layout horizontal-align="space">
+      <lightning-layout-item padding="around-small">
+
+        <!--Account Search Card Including Account Name and Number of Records to Search and Search Button-->
+        <lightning-card title="Account Search">
+          <div class="slds-p-horizontal_small">
+          <lightning-button onclick={handleClick} label="Search"></lightning-button>
+          <lightning-input label="Aaccount Name" onchange={handleInputChange} name="accountName"></lightning-input>
+          <lightning-input label="Number Of Records" onchange={handleInputChange} name="recordNo"></lightning-input>
+         </div>
+        </lightning-card>
+
+      </lightning-layout-item>
+
+      <lightning-layout-item padding="around-small">
+
+        <!--Card Displaying Accounts fetched from server and providing filter text and filter button for further filtration-->
+        
+        <lightning-card title="Filter Account">
+          <div class="slds-p-horizontal_small">
+          <lightning-button onclick={handleFilter} label="Filter"></lightning-button>
+          <lightning-input label="Filter Text" onchange={handleInputChange} name="filter"></lightning-input>
+          
+          <!--Local Copy Of Accounts-->
+          
+          <div class="slds-p-horizontal_small">
+          <template if:true={accountcopy}>
+            <template for:each={accountcopy} for:item="account">
+
+              <!--Passing single account instance to child-->
+              <c-child-First  account={account} key={account.Id}></c-child-First>
+            </template>
+          </template>
+          <template if:true={error}>
+            <p>{Error}</p>
+          </template>
+        </div>
+        </div>
+        </lightning-card>
+
+      </lightning-layout-item>
+    </lightning-layout>
+  </div>
+</template>
